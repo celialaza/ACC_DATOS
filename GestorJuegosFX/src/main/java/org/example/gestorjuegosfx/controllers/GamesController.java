@@ -144,19 +144,16 @@ public class GamesController implements Initializable {
         }
 
         if (juegoSeleccionado == null) {
-            // --- Es un juego NUEVO (HU2) ---
             Game newGame = new Game(null, txtTitulo.getText(), txtPlataforma.getText(), year, txtDescripcion.getText(), currentUser.getId(), "default.jpg");
             Optional<Game> savedGame = gameDAO.save(newGame);
 
             savedGame.ifPresent(game -> {
-                juegosData.add(game); // <-- Añade el juego a la lista de la tabla
+                juegosData.add(game); 
 
-                // --- ¡¡ESTA LÍNEA TE FALTABA!! ---
-                limpiarFormulario(); // <-- Limpia el formulario y la selección
+                limpiarFormulario(); 
             });
 
         } else {
-            // --- Es una ACTUALIZACIÓN (HU3) ---
             juegoSeleccionado.setTitle(txtTitulo.getText());
             juegoSeleccionado.setPlatform(txtPlataforma.getText());
             juegoSeleccionado.setYear(year);
@@ -168,9 +165,7 @@ public class GamesController implements Initializable {
             limpiarFormulario();
         }
     }
-    /**
-     * Limpia el formulario y la selección de la tabla
-     */
+   
     private void limpiarFormulario() {
         juegoSeleccionado = null;
         txtTitulo.clear();
@@ -184,3 +179,4 @@ public class GamesController implements Initializable {
 
 
 }
+
