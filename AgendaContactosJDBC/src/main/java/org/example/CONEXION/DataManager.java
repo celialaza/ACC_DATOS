@@ -1,0 +1,34 @@
+package org.example.CONEXION;
+
+import com.mysql.cj.jdbc.MysqlDataSource;
+
+import javax.sql.DataSource;
+import java.sql.SQLException;
+
+//Clase que conecta con la base de datos
+public class DataManager {
+
+    private static DataSource dataSource;
+
+    private DataManager() {}
+
+    public static DataSource getDataSource() {
+        //patrón singleton
+        if(dataSource == null) {
+            var ds = new MysqlDataSource();
+            ds.setURL("jdbc:mysql://localhost:3306/agenda_contactos");
+            ds.setUser("root");
+            ds.setPassword("root");
+            try {
+                ds.setAllowMultiQueries(true);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            dataSource = ds;
+
+        }
+        return dataSource;
+    }
+
+}
+
