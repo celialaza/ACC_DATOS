@@ -78,6 +78,23 @@ public class GameRepository implements Repository<Game> {
             }
 
         }
+    
+    // Busca juegos lanzados ANTES del año que le digas
+public List<Game> findGamesBeforeYear(int yearLimit) {
+    try (Session session = sessionFactory.openSession()) {
+        // HQL:
+        // WHERE year < :anio  -> Filtra los que sean menores al año indicado
+        // ORDER BY year ASC   -> Ordénalos ascendente (1990, 1991, 1995...)
+        var query = session.createQuery(
+            "FROM Game WHERE year < :anio ORDER BY year ASC", 
+            Game.class
+        );
+        
+        query.setParameter("anio", yearLimit);
+        
+        return query.list();
+    }
+}
 
     @Override
     public Long count() {
@@ -89,4 +106,5 @@ public class GameRepository implements Repository<Game> {
         }
     }
 }
+
 
