@@ -119,6 +119,28 @@ public class Main {
             System.out.println("Error: Debes introducir un número válido.");
         }
 
+        System.out.print("\nIntroduce un año límite (te mostraré los juegos ANTERIORES a ese año): ");
+        try {
+            int anioLimite = Integer.parseInt(scanner.nextLine());
+
+            // Llamamos al nuevo método
+            List<Game> juegosAntiguos = gameRepo.findGamesBeforeYear(anioLimite);
+
+            if (!juegosAntiguos.isEmpty()) {
+                System.out.println("--- Juegos Clásicos encontrados ---");
+                for (Game g : juegosAntiguos) {
+                    // Imprimimos el año y el título para verlo claro
+                    System.out.println("[" + g.getYear() + "] " + g.getTitle());
+                }
+            } else {
+                System.out.println("No hay juegos anteriores al año " + anioLimite);
+            }
+
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Introduce un año válido.");
+        }
+
+
         // 4. Cerrar sesión y recursos
         sessionService.logout();
         System.out.println("\nSesión cerrada. ¡Hasta luego!");
