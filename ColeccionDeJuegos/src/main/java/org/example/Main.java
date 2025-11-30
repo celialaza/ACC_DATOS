@@ -96,6 +96,28 @@ public class Main {
         } catch (NumberFormatException e) {
             System.out.println("ID inválido.");
         }
+        
+         System.out.print("\nIntroduce el año: ");
+        try {
+            String input = scanner.nextLine();
+            int anio = Integer.parseInt(input);
+
+            if (anio != 0) {
+                List<Game> juegos = gameRepo.findAllByYear(anio);
+
+                if (!juegos.isEmpty()) {
+                    System.out.println("Juegos encontrados del año " + anio + ":");
+
+                    for (Game g : juegos) {
+                        System.out.println(g); 
+                    }
+                } else {
+                    System.out.println("No se encontró ningún juego del año " + anio);
+                }
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Debes introducir un número válido.");
+        }
 
         // 4. Cerrar sesión y recursos
         sessionService.logout();
