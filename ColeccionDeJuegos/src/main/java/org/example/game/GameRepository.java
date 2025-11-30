@@ -68,6 +68,17 @@ public class GameRepository implements Repository<Game> {
         }
     }
 
+    public List<Game> findAllByYear(int year) {
+
+            try (Session session = sessionFactory.openSession()) {
+             
+                var query = session.createQuery("FROM Game WHERE year = year", Game.class);
+               
+                return query.list();
+            }
+
+        }
+
     @Override
     public Long count() {
         try(Session session=sessionFactory.openSession()){
@@ -78,3 +89,4 @@ public class GameRepository implements Repository<Game> {
         }
     }
 }
+
